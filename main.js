@@ -4,10 +4,7 @@
 import { calculatePortfolioValue, getPortfolioAllocation } from "./portfolio.js";
 import { Transaction } from "./transaction.js";
 
-// Total portfolio value
 console.log("Total Portfolio Value:", calculatePortfolioValue());
-
-// Allocation percentages for each asset
 console.log("Portfolio Allocation:", getPortfolioAllocation());
 
 // Transactions
