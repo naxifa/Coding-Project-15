@@ -4,8 +4,22 @@
 import { calculatePortfolioValue, getPortfolioAllocation } from "./portfolio.js";
 import { Transaction } from "./transaction.js";
 
-console.log("Total Portfolio Value:", calculatePortfolioValue());
-console.log("Portfolio Allocation:", getPortfolioAllocation());
+function displayOutput(text, isTitle = false) {
+    const outputDiv = document.getElementById("output");
+    if (isTitle) {
+        outputDiv.innerHTML += `<div class="section-title">${text}</div>`;
+    } else {
+        outputDiv.innerHTML += `<p>${text}</p>`;
+    }
+}
+
+displayOutput("Portfolio Value: $" + calculatePortfolioValue().toFixed(2), true);
+displayOutput("Portfolio Allocation: ", true);
+
+const allocation = getPortfolioAllocation();
+allocation.forEach(asset => {
+    displayOutput(`${asset.name}: ${asset.allocation}`);
+});
 
 // Transactions
 try {
@@ -16,17 +30,22 @@ try {
  buyTransaction.apply();
  sellTransaction.apply();
 
-// Display transaction details
- console.log("Transactions:");
- console.log("Bought 10 units of Asset ID 1");
- console.log("Sold 20 units of Asset ID 2");
+ // Display transaction details
+ displayOutput("Transactions:");
+ displayOutput("Bought 10 units of Tech Stock");
+ displayOutput("Sold 30 units of Savings Bond");
 
-// Display the updated portfolio value and allocation after transactions
- console.log("Updated Portfolio Value:", calculatePortfolioValue());
- console.log("Updated Portfolio Allocation:", getPortfolioAllocation());
-} 
+ // Display the updated portfolio details after transactions
+ displayOutput("Updated Portfolio Value: $" + calculatePortfolioValue().toFixed(2), true);
+ displayOutput("Updated Portfolio Allocation: ", true);
 
-catch (error) {
- console.error(error.message);
+ const updatedAllocation = getPortfolioAllocation();
+ updatedAllocation.forEach(asset => {
+     displayOutput(`${asset.name}: ${asset.allocation}`);
+ });
+
+} catch (error) {
+ displayOutput(`Error: ${error.message}`);
 }
+
 
